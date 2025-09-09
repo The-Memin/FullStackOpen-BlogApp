@@ -1,0 +1,41 @@
+:root{
+    --error-color: #ff0000;
+    --success-color: #198754;
+    --warning-color: #ffc107;
+    --bg-notification: rgb(224, 224, 224);
+}
+
+.notification{
+    padding: 18px 35px;
+    border-style: solid;
+    border-width: 4px;
+    border-radius: 6px;
+    font-size: 23px;
+    font-weight: 500;
+    background-color: var(--bg-notification);
+    margin-bottom: 1em;
+}
+
+.error{
+    color: var(--error-color);
+    border-color: var(--error-color);
+}
+
+.success{
+    color: var(--success-color);
+    border-color: var(--success-color);
+}
+
+
+.btn-delete{
+    margin-top: 8px;
+    background-color: rgb(170, 2, 2);
+    color: #fff;
+    border-radius: 4px;
+    padding: 2px 20px;
+    border: 1px solid rgb(202, 8, 8);
+    cursor: pointer;
+    &:hover{
+        background-color: rgb(220, 22, 22);
+    }
+}
