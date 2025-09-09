@@ -46,5 +46,22 @@ describe('Blog app', function(){
 
       cy.get('html').should('not.contain', `${TEST_USER.name} logged in`)
     })
+
+    describe('When logged in', function() {
+      beforeEach(function() {
+        cy.login({ username: TEST_USER.username, password: TEST_USER.password })
+      })
+
+      it('A blog can be created', function() {
+        cy.contains('new blog').click()
+        cy.get('#title').type('a blog created by cypress')
+        cy.get('#author').type('cypress')
+        cy.get('#url').type('www.cypress.com')
+        cy.get('button[type="submit"]').click()
+
+        cy.contains('a new blog You\'re NOT gonna need it! by cypress added')
+        cy.contains('a blog created by cypress')
+      })
+    })
   })
 })
