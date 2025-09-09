@@ -77,6 +77,19 @@ describe('Blog app', function(){
           cy.get('@likeButton').click()
           cy.contains('second blog').parent().should('contain', 'Likes: 1')
         })
+
+        it.only('one of those can be deleted', function() {
+          cy.contains('first blog').contains('view').click()
+          cy.contains('first blog').parent().find('button').contains('remove').as('removeButton')
+
+          cy.on('window:confirm', (str) => {
+            expect(str).to.equal(`Remove blog You're NOT gonna need it! by ${TEST_USER.username}`)
+            return true
+          })
+
+          cy.get('@removeButton').click()
+          cy.contains('first blog').parents('.blog').should('not.exist')
+        })
       })
 
     })
