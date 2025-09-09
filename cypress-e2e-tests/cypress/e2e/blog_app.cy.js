@@ -97,15 +97,13 @@ describe('Blog app', function(){
           cy.get('@removeButton1').should('be.visible')
 
           cy.contains('second blog').contains('view').click()
-          cy.contains('second blog').parent().find('button').contains('remove').as('removeButton2')
-          cy.get('@removeButton2').should('not.exist')
+          cy.contains('second blog').parent().find('button').contains('remove').should('not.exist')
 
           cy.contains('third blog').contains('view').click()
-          cy.contains('third blog').parent().find('button').contains('remove').as('removeButton3')
-          cy.get('@removeButton3').should('not.exist')
+          cy.contains('third blog').parent().find('button').contains('remove').should('not.exist')
         })
 
-        it.only('blogs are ordered according to likes', function() {
+        it('blogs are ordered according to likes', function() {
           cy.contains('second blog').contains('view').click()
           cy.contains('second blog').parent().find('button').contains('like').as('likeButton2')
 
