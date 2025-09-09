@@ -78,7 +78,7 @@ describe('Blog app', function(){
           cy.contains('second blog').parent().should('contain', 'Likes: 1')
         })
 
-        it.only('one of those can be deleted', function() {
+        it('one of those can be deleted', function() {
           cy.contains('first blog').contains('view').click()
           cy.contains('first blog').parent().find('button').contains('remove').as('removeButton')
 
@@ -90,6 +90,42 @@ describe('Blog app', function(){
           cy.get('@removeButton').click()
           cy.contains('first blog').parents('.blog').should('not.exist')
         })
+
+        it('delete button is only shown for blogs created by the logged in user', function() {
+          cy.contains('first blog').contains('view').click()
+          cy.contains('first blog').parent().find('button').contains('remove').as('removeButton1')
+          cy.get('@removeButton1').should('be.visible')
+
+          cy.contains('second blog').contains('view').click()
+          cy.contains('second blog').parent().find('button').contains('remove').as('removeButton2')
+          cy.get('@removeButton2').should('not.exist')
+
+          cy.contains('third blog').contains('view').click()
+          cy.contains('third blog').parent().find('button').contains('remove').as('removeButton3')
+          cy.get('@removeButton3').should('not.exist')
+        })
+
+        it.only('blogs are ordered according to likes', function() {
+          cy.contains('second blog').contains('view').click()
+          cy.contains('second blog').parent().find('button').contains('like').as('likeButton2')
+
+          cy.get('@likeButton2').click()
+          cy.wait(500)
+          cy.get('@likeButton2').click()
+          cy.wait(500)
+
+          cy.contains('third blog').contains('view').click()
+          cy.contains('third blog').parent().find('button').contains('like').as('likeButton3')
+
+          cy.get('@likeButton3').click()
+          cy.wait(500)
+
+          cy.get('.blog').then( blogs => {
+            cy.wrap(blogs[0]).should('contain', 'second blog')
+            cy.wrap(blogs[1]).should('contain', 'third blog')
+            cy.wrap(blogs[2]).should('contain', 'first blog')
+          })
+        })    
       })
 
     })
