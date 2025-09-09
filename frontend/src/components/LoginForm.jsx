@@ -21,6 +21,7 @@ const LoginForm = ({ onLogin }) => {
                     <label htmlFor="username">username</label>
                     <input
                         data-testid="username-input"
+                        id='username'
                         placeholder='username'
                         type="text"
                         name="username"
@@ -32,6 +33,7 @@ const LoginForm = ({ onLogin }) => {
                     <label htmlFor="password">password</label>
                     <input
                         data-testid="password-input"
+                        id='password'
                         placeholder='password'
                         type="password"
                         name="password"
